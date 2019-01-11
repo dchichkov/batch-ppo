@@ -530,7 +530,7 @@ class PPO(object):
             kl_change > 1.3 * self._config.kl_target,
             # pylint: disable=g-long-lambda
             lambda: tf.Print(self._penalty.assign(
-                self._penalty * 1.5), [0], 'increase penalty '),
+                self._penalty * 1.5 + 1e-8), [0], 'increase penalty '),
             float)
         maybe_decrease = tf.cond(
             kl_change < 0.7 * self._config.kl_target,
